@@ -16,6 +16,12 @@ import java.util.Map;
  *
  */
 public class GameGrid {
+    private Map<Coordinate,GridComponent> grid;
+    private int range;
+    public GameGrid( int range) {
+        this.grid = generate(range);
+        this.range = range;
+    }
 
     /**
      * Helper method:
@@ -38,5 +44,15 @@ public class GameGrid {
             }
         }
         return tempGrid;
+    }
+    public Map<Coordinate,GridComponent> getGrid() {
+        return this.grid;
+    }
+    public int getRange() {
+        return this.range;
+    }
+    public void setCoordinate(Coordinate coordinate,
+                              GridComponent component) {
+        this.grid.replace(coordinate,component);
     }
 }
