@@ -45,12 +45,26 @@ public class GameGrid {
         }
         return tempGrid;
     }
+    /**
+     * Returns the grid of the game.
+     * @return the grid of the game.
+     */
     public Map<Coordinate,GridComponent> getGrid() {
         return this.grid;
     }
+    /**
+     * Returns the range of the grid.
+     * @return the range of the grid.
+     */
     public int getRange() {
         return this.range;
     }
+    /**
+     * Sets the coordinate of the grid to the given component.
+     * @param coordinate The coordinate of the grid.
+     * @param component The component to be set.
+     * 
+     */
     public void setCoordinate(Coordinate coordinate,
                               GridComponent component) {
         this.grid.replace(coordinate,component);
