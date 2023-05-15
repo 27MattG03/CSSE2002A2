@@ -13,6 +13,67 @@ import java.util.function.Consumer;
  * @ass2
  */
 public class Path {
+    private Path previous;
+    private Path next;
+    private Transport node;
+    public Path(Path path) throws IllegalArgumentException {
+        this.next = path.getNext();
+        this.previous = path.getPrevious();
+        this.node = path.getNode();
+    }
+    public Path(Transport node) throws IllegalArgumentException {
+        if (node != null) {
+            this.node = node;
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+    }
+    public Path(Transport node, Path previous, Path next) {
+        this.next = next;
+        this.previous = previous;
+        if (node != null) {
+            this.node = node;
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+    }
+    public Path head() {
+        if (this.previous == null) {
+            return this;
+        } else {
+            return this.previous.head();
+        }
+
+    }
+    public Path tail() {
+        if (this.next == null) {
+            return this;
+        } else {
+            return this.next.tail();
+        }
+    }
+    public Path getPrevious() {
+        return this.previous;
+    }
+    public Path getNext() {
+        return this.next;
+    }
+
+    public void setPrevious(Path path){
+
+        this.previous = path;
+    }
+    public void setNext(Path path) {
+        this.next = path;
+    }
+    public Transport getNode() {
+        return this.node;
+    }
+
+
+
     /**
      * This method takes a Transport Consumer,
      * using the Consumer&lt;T&gt; functional interface from java.util.
@@ -27,6 +88,7 @@ public class Path {
      * @see java.util.function.Consumer
      * @provided
      */
+
     public void applyAll(Consumer<Transport> consumer) {
         Path path = tail(); // IMPORTANT: go backwards to aid tick
         do {
