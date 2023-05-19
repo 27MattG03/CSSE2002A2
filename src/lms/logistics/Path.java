@@ -96,4 +96,27 @@ public class Path {
             path = path.previous;
         } while (path != null);
     }
+    @Override
+    public String toString () {
+        StringBuilder out = new StringBuilder("START -> ");
+        if (this.equals(head())) {
+            Path current = this;
+            out.append(head().getNode().toString());
+            out.append(" -> ");
+
+            do {
+                current = current.getNext();
+                out.append(current.getNode().toString());
+                out.append(" -> ");
+            } while (!current.equals(tail()));
+            out.append("END");
+
+        } else {
+            return head().toString();
+        }
+        return out.toString();
+
+    }
+
 }
+

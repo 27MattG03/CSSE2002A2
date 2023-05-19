@@ -1,6 +1,7 @@
 package lms.grid;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -50,7 +51,11 @@ public class GameGrid {
      * @return the grid of the game.
      */
     public Map<Coordinate,GridComponent> getGrid() {
-        return this.grid;
+        Map<Coordinate,GridComponent> copy = new HashMap<Coordinate,GridComponent>();
+        for (Map.Entry<Coordinate,GridComponent> entry : this.grid.entrySet()) {
+            copy.put(entry.getKey(), entry.getValue());
+        }
+        return copy;
     }
     /**
      * Returns the range of the grid.

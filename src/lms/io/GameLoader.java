@@ -29,7 +29,7 @@ public class GameLoader extends Object {
         buffReader.readLine();
         int producers = toInt(buffReader.readLine());
         int receivers = toInt(buffReader.readLine());
-       buffReader.readLine().substring(0,4).equals("-----");
+        buffReader.readLine();
         List<Item> producerKeys = new ArrayList<Item>();
         for(int i = 0; i < producers; i++){
             String key = buffReader.readLine();
@@ -182,7 +182,7 @@ public class GameLoader extends Object {
 
                 if (componentPrevious != null) {
                     component.getPath().setPrevious(componentPrevious.getPath());
-                    componentPrevious.getPath().setNext(component.getInput());
+                    componentPrevious.getPath().setNext(component.getPath());
                 }
 
                 if (componentNext != null) {
