@@ -94,6 +94,9 @@ public class GameLoader extends Object {
             }
             currentCoordinate = origin;
         }
+        if (!checkHex(game)){
+            throw new FileFormatException();
+        }
         buffReader.readLine();
         String buffCheck;
         while((buffCheck = buffReader.readLine()) != null) {
@@ -221,11 +224,93 @@ public class GameLoader extends Object {
         }
         throw new IllegalArgumentException();
     }
+    private static boolean checkHex (GameGrid grid) {
+        boolean isHex = true;
+        Map<Coordinate, GridComponent> gridMap = grid.getGrid();
+        Coordinate origin = new Coordinate();
+        Coordinate current = origin;
+        int rightCount = 0;
+        while (gridMap.get(current.getRight())!= null) {
+            current = current.getRight();
+            rightCount++;
+        }
+        if (!(gridMap.get(current.getRight()) == null
+                && gridMap.get(current.getTopRight()) == null
+                && gridMap.get(current.getBottomRight()) == null)) {
+            isHex = false;
+        }
+        current = origin;
+        int bottomLeftCount = 0;
+        while (gridMap.get(current.getBottomLeft())!= null){
+            current = current.getBottomLeft();
+            bottomLeftCount++;
+        }
+        if (!(gridMap.get(current.getLeft()) == null
+                && gridMap.get(current.getBottomLeft()) == null
+                && gridMap.get(current.getBottomRight()) == null)) {
+            isHex = false;
+        }
+        current = origin;
+        int bottomRightCount = 0;
+        while (gridMap.get(current.getBottomRight())!= null){
+            current = current.getBottomRight();
+            bottomRightCount++;
+        }
+        if (!(gridMap.get(current.getRight()) == null
+                && gridMap.get(current.getBottomLeft()) == null
+                && gridMap.get(current.getBottomRight()) == null)) {
+            isHex = false;
+        }
+        current = origin;
+        int leftCount = 0;
+        while (gridMap.get(current.getLeft())!= null){
+            current = current.getLeft();
+            leftCount++;
+        }
+        if (!(gridMap.get(current.getLeft()) == null
+                && gridMap.get(current.getBottomLeft()) == null
+                && gridMap.get(current.getTopLeft()) == null)) {
+            isHex = false;
+        }
+        current = origin;
+        int topLeftCount = 0;
+        while (gridMap.get(current.getTopLeft())!= null){
+            current = current.getTopLeft();
+            topLeftCount++;
+
+        }
+        if (!(gridMap.get(current.getLeft()) == null
+                && gridMap.get(current.getTopRight()) == null
+                && gridMap.get(current.getTopLeft()) == null)) {
+            isHex = false;
+        }
+        current = origin;
+        int topRightCount = 0;
+        while(gridMap.get(current.getTopRight())!= null) {
+            current = current.getTopRight();
+            topRightCount++;
+        }
+        if (!(gridMap.get(current.getRight()) == null
+                && gridMap.get(current.getTopRight()) == null
+                && gridMap.get(current.getTopLeft()) == null)) {
+            isHex = false;
+        }
+        int range = grid.getRange();
+        if (topRightCount == range
+                && topLeftCount == range
+                && leftCount == range
+                && rightCount == range
+                && bottomRightCount == range
+                && bottomLeftCount == range
+                && isHex) {
+            return true;
+
+        } else {
+            return false;
+        }
 
 
 
-
-
-
+    }
 
 }
