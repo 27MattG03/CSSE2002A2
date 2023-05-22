@@ -92,12 +92,12 @@ public class GameLoader extends Object {
             currentCoordinate = origin;
         }
         buffReader.readLine();
-
-        while(buffReader.ready()) {
+        String buffCheck;
+        while((buffCheck = buffReader.readLine()) != null) {
             StringBuilder idBuild = new StringBuilder();
             StringBuilder idNextBuild = new StringBuilder();
             StringBuilder idPreviousBuild = new StringBuilder();
-            char[] pathDetailsBuff = buffReader.readLine().toCharArray();
+            char[] pathDetailsBuff = buffCheck.toCharArray();
             List<Character> pathDetails = new ArrayList<Character>();
             for (char c : pathDetailsBuff) {
                 pathDetails.add(c);
