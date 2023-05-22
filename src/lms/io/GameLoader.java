@@ -81,7 +81,10 @@ public class GameLoader extends Object {
                         break;
                     case ' ':
                         break;
-
+                    case '\n':
+                        break;
+                    default:
+                        throw new FileFormatException();
                 }
             }
             if (i < range) {
