@@ -52,31 +52,36 @@ public class GameLoader extends Object {
         int count = 1;
         for(int i = 0;  i < (range*2)+1; i++) {
             String line = buffReader.readLine();
-
+            int rowCount = 0;
             char check[] = line.toCharArray();
             for (char c: check) {
                 switch (c) {
                     case 'p':
                         game.setCoordinate(currentCoordinate, new Producer(count,producerIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
+                        rowCount++;
                         count++;
                         break;
                     case 'w':
                         game.setCoordinate(currentCoordinate,  () -> ("w"));
                         currentCoordinate = currentCoordinate.getRight();
+                        rowCount++;
                         break;
                     case 'r':
                         game.setCoordinate(currentCoordinate, new Receiver(count,recieverIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
                         count++;
+                        rowCount++;
                         break;
                     case 'o':
                         game.setCoordinate(currentCoordinate, () -> ("o"));
                         currentCoordinate = currentCoordinate.getRight();
+                        rowCount++;
                         break;
                     case 'b':
                         game.setCoordinate(currentCoordinate, new Belt(count));
                         currentCoordinate = currentCoordinate.getRight();
+                        rowCount++;
                         count++;
                         break;
                     case ' ':
@@ -89,13 +94,16 @@ public class GameLoader extends Object {
             }
             if (i < range) {
                 origin = origin.getBottomLeft();
+                if (rowCount != range+i+1) {
+                    throw new FileFormatException();
+                }
             } else {
                 origin = origin.getBottomRight();
+                if (rowCount != 3*range + 1 - i ) {
+                    throw new FileFormatException();
+                }
             }
             currentCoordinate = origin;
-        }
-        if (!checkHex(game)){
-            throw new FileFormatException();
         }
         buffReader.readLine();
         String buffCheck;
@@ -312,5 +320,8 @@ public class GameLoader extends Object {
 
 
     }
+
+
+
 
 }
