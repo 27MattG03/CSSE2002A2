@@ -121,5 +121,13 @@ public class Path {
 
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Path && ((Path) obj).getNode() == getNode()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
