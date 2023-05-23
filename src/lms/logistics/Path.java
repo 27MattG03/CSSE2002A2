@@ -24,6 +24,9 @@ public class Path {
     public Path(Transport node) throws IllegalArgumentException {
         if (node != null) {
             this.node = node;
+            this.previous = null;
+            this.next = null;
+
         } else {
             throw new IllegalArgumentException();
         }
