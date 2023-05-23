@@ -26,7 +26,7 @@ public class FileFormatException extends Exception {
      */
     public FileFormatException(String message,
                                int lineNum) {
-        super(String.format("%s (line: %o)", message, lineNum));
+        super(String.format("%s (line: %s)", message, lineNum));
     }
 
     /**
@@ -38,7 +38,7 @@ public class FileFormatException extends Exception {
     public FileFormatException(String message,
                                int lineNum,
                                Throwable cause) {
-        super(String.format("%s (line: %o)", message, lineNum), cause);
+        super(String.format("%s (line: %s)", message, lineNum), cause);
 
     }
 
