@@ -12,7 +12,7 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
-        if( o.getClass().equals(this.getClass())&& (o.hashCode() == this.hashCode()) ){
+        if(o != null && o.getClass().equals(this.getClass())&& (o.hashCode() == this.hashCode()) ){
             return true;
         } else {
             return false;
