@@ -104,11 +104,11 @@ public class Path {
             out.append(head().getNode().toString());
             out.append(" -> ");
 
-            do {
+            while (!current.equals(tail())){
                 current = current.getNext();
                 out.append(current.getNode().toString());
                 out.append(" -> ");
-            } while (!current.equals(tail()));
+            }
             out.append("END");
 
         } else {
