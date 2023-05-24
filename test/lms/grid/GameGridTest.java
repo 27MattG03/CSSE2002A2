@@ -22,6 +22,7 @@ public class GameGridTest {
 
     }
 
+
     @Test
     public void getRange() {
         GameGrid gridSmallRange = new GameGrid(2);
