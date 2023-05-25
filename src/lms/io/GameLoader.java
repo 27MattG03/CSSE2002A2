@@ -23,17 +23,17 @@ public class GameLoader extends Object {
         BufferedReader buffReader = new BufferedReader(reader);
         int range = toInt(buffReader.readLine());
         GameGrid game = new GameGrid(range);
-        buffReader.readLine();
+        processSeparator(buffReader);
         int producers = toInt(buffReader.readLine());
         int receivers = toInt(buffReader.readLine());
-        buffReader.readLine();
+        processSeparator(buffReader);
         List<Item> producerKeys = new ArrayList<Item>();
         for(int i = 0; i < producers; i++){
             String key = buffReader.readLine();
             producerKeys.add(new Item(key));
         }
         ListIterator<Item> producerIter = producerKeys.listIterator();
-        buffReader.readLine();
+        processSeparator(buffReader);
         List<Item> receiverKeys = new ArrayList<Item>();
         for(int i = 0; i < receivers; i++){
             String key = buffReader.readLine();
@@ -45,7 +45,7 @@ public class GameLoader extends Object {
             origin = origin.getTopLeft();
         }
         Coordinate currentCoordinate = origin;
-        buffReader.readLine();
+        processSeparator(buffReader);
         int count = 1;
         for(int i = 0; i < (range * 2) + 1; i++) {
             String line = buffReader.readLine();
@@ -102,7 +102,7 @@ public class GameLoader extends Object {
             }
             currentCoordinate = origin;
         }
-        buffReader.readLine();
+        processSeparator(buffReader);
         String buffCheck;
         while((buffCheck = buffReader.readLine()) != null) {
             StringBuilder idBuild = new StringBuilder();
@@ -225,7 +225,19 @@ public class GameLoader extends Object {
         }
         throw new IllegalArgumentException();
     }
-
+    private static void processSeparator(BufferedReader reader) throws FileFormatException{
+        String line;
+        String sep;
+        try {
+            line = reader.readLine();
+            sep = line.substring(0,5);
+        } catch (Exception e) {
+            throw new FileFormatException();
+        }
+        if (!(sep.equals("_____"))) {
+            throw new FileFormatException();
+        }
+    }
 
 
 
