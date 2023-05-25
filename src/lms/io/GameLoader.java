@@ -16,7 +16,7 @@ import java.util.*;
 
 
 public class GameLoader extends Object {
-
+    private static final String SEPARATOR = "_____";
     public static GameGrid load(Reader reader)
             throws IOException,
             FileFormatException {
@@ -81,9 +81,7 @@ public class GameLoader extends Object {
                         rowCount++;
                         count++;
                         break;
-                    case ' ':
-                        break;
-                    case '\n':
+                    case ' ', '\n':
                         break;
                     default:
                         throw new FileFormatException();
@@ -225,6 +223,7 @@ public class GameLoader extends Object {
         }
         throw new IllegalArgumentException();
     }
+
     private static void processSeparator(BufferedReader reader) throws FileFormatException{
         String line;
         String sep;
@@ -234,7 +233,7 @@ public class GameLoader extends Object {
         } catch (Exception e) {
             throw new FileFormatException();
         }
-        if (!(sep.equals("_____"))) {
+        if (!(sep.equals(SEPARATOR))) {
             throw new FileFormatException();
         }
     }

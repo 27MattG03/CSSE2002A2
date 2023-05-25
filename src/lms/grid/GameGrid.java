@@ -17,7 +17,7 @@ import java.util.Map;
  *
  */
 public class GameGrid {
-    private Map<Coordinate,GridComponent> grid;
+    private Map<Coordinate, GridComponent> grid;
     private int range;
     public GameGrid(int range) {
         this.grid = generate(range);
@@ -46,17 +46,19 @@ public class GameGrid {
         }
         return tempGrid;
     }
+
     /**
      * Returns a copy of the grid of the game.
      * @return a copy of the grid of the game.
      */
-    public Map<Coordinate,GridComponent> getGrid() {
-        Map<Coordinate,GridComponent> copy = new HashMap<Coordinate, GridComponent>();
+    public Map<Coordinate, GridComponent> getGrid() {
+        Map<Coordinate, GridComponent> copy = new HashMap<Coordinate, GridComponent>();
         for (Map.Entry<Coordinate, GridComponent> entry : this.grid.entrySet()) {
             copy.put(entry.getKey(), entry.getValue());
         }
         return copy;
     }
+
     /**
      * Returns the range of the grid.
      * @return the range of the grid.
@@ -64,6 +66,7 @@ public class GameGrid {
     public int getRange() {
         return this.range;
     }
+
     /**
      * Sets the coordinate of the grid to the given component.
      * @param coordinate The coordinate of the grid.

@@ -3,7 +3,7 @@ package lms.exceptions;
 /**
  * A special runtime Exception.
  */
-public class BadStateException extends RuntimeException{
+public class BadStateException extends RuntimeException {
     /**
      * Constructs a BadStateException with no message
      */

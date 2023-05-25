@@ -15,7 +15,7 @@ public class FileFormatException extends Exception {
      * Constructs a FileFormatException with a specified message.
      * @param message The message associated with this Exception.
      */
-    public FileFormatException(String message){
+    public FileFormatException(String message) {
         super(message);
     }
 
@@ -49,7 +49,7 @@ public class FileFormatException extends Exception {
      */
     public FileFormatException(String message,
                                Throwable cause) {
-        super(message,cause);
+        super(message, cause);
 
     }
 
