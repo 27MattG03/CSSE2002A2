@@ -101,6 +101,45 @@ public class GameLoader extends Object {
             currentCoordinate = origin;
         }
         processSeparator(buffReader);
+        return processPath(game, buffReader);
+    }
+    private static int toInt(String s)
+            throws FileFormatException {
+        try {
+            return Integer.parseInt(s);
+
+        } catch (Exception e) {
+            throw new FileFormatException();
+        }
+    }
+    private static Transport getGridByID  (int id, GameGrid grid) throws IllegalArgumentException {
+        Iterator<GridComponent> iter = grid.getGrid().values().iterator();
+        GridComponent component;
+        while (iter.hasNext()) {
+             component = iter.next();
+             if(component instanceof Transport){
+                 if(((Transport) component).getId() == id) {
+                     return (Transport) component;
+                 }
+             }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    private static void processSeparator(BufferedReader reader) throws FileFormatException{
+        String line;
+        String sep;
+        try {
+            line = reader.readLine();
+            sep = line.substring(0,5);
+        } catch (Exception e) {
+            throw new FileFormatException();
+        }
+        if (!(sep.equals(SEPARATOR))) {
+            throw new FileFormatException();
+        }
+    }
+    private static GameGrid processPath (GameGrid game, BufferedReader buffReader) throws FileFormatException, IOException {
         String buffCheck;
         while((buffCheck = buffReader.readLine()) != null) {
             StringBuilder idBuild = new StringBuilder();
@@ -201,43 +240,4 @@ public class GameLoader extends Object {
         }
         return game;
     }
-    private static int toInt(String s)
-            throws FileFormatException {
-        try {
-            return Integer.parseInt(s);
-
-        } catch (Exception e) {
-            throw new FileFormatException();
-        }
-    }
-    private static Transport getGridByID  (int id, GameGrid grid) throws IllegalArgumentException {
-        Iterator<GridComponent> iter = grid.getGrid().values().iterator();
-        GridComponent component;
-        while (iter.hasNext()) {
-             component = iter.next();
-             if(component instanceof Transport){
-                 if(((Transport) component).getId() == id) {
-                     return (Transport) component;
-                 }
-             }
-        }
-        throw new IllegalArgumentException();
-    }
-
-    private static void processSeparator(BufferedReader reader) throws FileFormatException{
-        String line;
-        String sep;
-        try {
-            line = reader.readLine();
-            sep = line.substring(0,5);
-        } catch (Exception e) {
-            throw new FileFormatException();
-        }
-        if (!(sep.equals(SEPARATOR))) {
-            throw new FileFormatException();
-        }
-    }
-
-
-
 }
