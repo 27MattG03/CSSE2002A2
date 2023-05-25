@@ -33,18 +33,18 @@ public class GameLoader extends Object {
         int range = toInt(buffReader.readLine());
         GameGrid game = new GameGrid(range);
         processSeparator(buffReader);
-        int producers = toInt(buffReader.readLine());
-        int receivers = toInt(buffReader.readLine());
+        final int producers = toInt(buffReader.readLine());
+        final int receivers = toInt(buffReader.readLine());
         processSeparator(buffReader);
         List<Item> producerKeys = new ArrayList<Item>();
-        for(int i = 0; i < producers; i++){
+        for (int i = 0; i < producers; i++) {
             String key = buffReader.readLine();
             producerKeys.add(new Item(key));
         }
         ListIterator<Item> producerIter = producerKeys.listIterator();
         processSeparator(buffReader);
         List<Item> receiverKeys = new ArrayList<Item>();
-        for(int i = 0; i < receivers; i++){
+        for (int i = 0; i < receivers; i++) {
             String key = buffReader.readLine();
             receiverKeys.add(new Item(key));
         }
@@ -56,10 +56,10 @@ public class GameLoader extends Object {
         Coordinate currentCoordinate = origin;
         processSeparator(buffReader);
         int count = 1;
-        for(int i = 0; i < (range * 2) + 1; i++) {
+        for (int i = 0; i < (range * 2) + 1; i++) {
             String line = buffReader.readLine();
             int rowCount = 0;
-            char check[] = line.toCharArray();
+            char[] check = line.toCharArray();
             for (char c : check) {
                 switch (c) {
                     case 'p':
@@ -103,7 +103,7 @@ public class GameLoader extends Object {
                 }
             } else {
                 origin = origin.getBottomRight();
-                if (rowCount != 3 * range + 1 - i ) {
+                if (rowCount != 3 * range + 1 - i) {
                     throw new FileFormatException();
                 }
             }
@@ -112,6 +112,13 @@ public class GameLoader extends Object {
         processSeparator(buffReader);
         return processPath(game, buffReader);
     }
+
+    /**
+     * This method converts a string to an integer.
+     * @param s the string to be converted.
+     * @return the integer.
+     * @throws FileFormatException if the string cannot be converted.
+     */
     private static int toInt(String s)
             throws FileFormatException {
         try {
@@ -121,16 +128,24 @@ public class GameLoader extends Object {
             throw new FileFormatException();
         }
     }
-    private static Transport getGridByID  (int id, GameGrid grid) throws IllegalArgumentException {
+
+    /**
+     * This method gets an element from the grid by its id.
+     * @param id the id of the element.
+     * @param grid the GameGrid object.
+     * @return the element.
+     * @throws IllegalArgumentException if the id is not found.
+     */
+    private static Transport getGridById(int id, GameGrid grid) throws IllegalArgumentException {
         Iterator<GridComponent> iter = grid.getGrid().values().iterator();
         GridComponent component;
         while (iter.hasNext()) {
-             component = iter.next();
-             if(component instanceof Transport){
-                 if(((Transport) component).getId() == id) {
-                     return (Transport) component;
-                 }
-             }
+            component = iter.next();
+            if (component instanceof Transport){
+                if (((Transport) component).getId() == id) {
+                    return (Transport) component;
+                }
+            }
         }
         throw new IllegalArgumentException();
     }
@@ -225,14 +240,14 @@ public class GameLoader extends Object {
             Transport componentPrevious;
             Transport componentNext;
             try {
-                component = getGridByID(id, game);
+                component = getGridById(id, game);
                 if (idPrevious != 0) {
-                    componentPrevious = getGridByID(idPrevious, game);
+                    componentPrevious = getGridById(idPrevious, game);
                 } else {
                     componentPrevious = null;
                 }
                 if (idNext != 0) {
-                    componentNext = getGridByID(idNext, game);
+                    componentNext = getGridById(idNext, game);
                 } else {
                     componentNext = null;
                 }
