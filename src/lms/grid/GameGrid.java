@@ -17,8 +17,19 @@ import java.util.Map;
  *
  */
 public class GameGrid {
+    /**
+     * The grid is a mapping of coordinates to grid components.
+     */
     private Map<Coordinate, GridComponent> grid;
+    /**
+     * The range of the grid.
+     */
     private int range;
+
+    /**
+     * Constructs the grid with the given range.
+     * @param range The range of the grid.
+     */
     public GameGrid(int range) {
         this.grid = generate(range);
         this.range = range;
