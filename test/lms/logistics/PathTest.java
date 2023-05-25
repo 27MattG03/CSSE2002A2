@@ -19,6 +19,10 @@ public class PathTest {
         this.next2.setNext(tail);
     }
     @org.junit.Test
+    public void testConstructor () {
+        assertThrows(IllegalArgumentException);
+    }
+    @org.junit.Test
     public void head() {
         initFullPath();
         assertEquals(this.next1.head(), this.head);

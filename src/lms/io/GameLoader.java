@@ -21,10 +21,7 @@ public class GameLoader extends Object {
             throws IOException,
             FileFormatException {
         BufferedReader buffReader = new BufferedReader(reader);
-
-
         int range = toInt(buffReader.readLine());
-
         GameGrid game = new GameGrid(range);
         buffReader.readLine();
         int producers = toInt(buffReader.readLine());
@@ -36,7 +33,7 @@ public class GameLoader extends Object {
             producerKeys.add(new Item(key));
         }
         ListIterator<Item> producerIter = producerKeys.listIterator();
-       buffReader.readLine();
+        buffReader.readLine();
         List<Item> receiverKeys = new ArrayList<Item>();
         for(int i = 0; i < receivers; i++){
             String key = buffReader.readLine();
@@ -44,31 +41,31 @@ public class GameLoader extends Object {
         }
         ListIterator<Item> recieverIter = receiverKeys.listIterator();
         Coordinate origin = new Coordinate();
-        for (int i = 0; i<range; i++) {
+        for (int i = 0; i < range; i++) {
             origin = origin.getTopLeft();
         }
         Coordinate currentCoordinate = origin;
         buffReader.readLine();
         int count = 1;
-        for(int i = 0;  i < (range*2)+1; i++) {
+        for(int i = 0; i < (range * 2) + 1; i++) {
             String line = buffReader.readLine();
             int rowCount = 0;
             char check[] = line.toCharArray();
-            for (char c: check) {
+            for (char c : check) {
                 switch (c) {
                     case 'p':
-                        game.setCoordinate(currentCoordinate, new Producer(count,producerIter.next()));
+                        game.setCoordinate(currentCoordinate, new Producer(count, producerIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
                         rowCount++;
                         count++;
                         break;
                     case 'w':
-                        game.setCoordinate(currentCoordinate,  () -> ("w"));
+                        game.setCoordinate(currentCoordinate, () -> ("w"));
                         currentCoordinate = currentCoordinate.getRight();
                         rowCount++;
                         break;
                     case 'r':
-                        game.setCoordinate(currentCoordinate, new Receiver(count,recieverIter.next()));
+                        game.setCoordinate(currentCoordinate, new Receiver(count, recieverIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
                         count++;
                         rowCount++;
@@ -94,12 +91,12 @@ public class GameLoader extends Object {
             }
             if (i < range) {
                 origin = origin.getBottomLeft();
-                if (rowCount != range+i+1) {
+                if (rowCount != range + i + 1) {
                     throw new FileFormatException();
                 }
             } else {
                 origin = origin.getBottomRight();
-                if (rowCount != 3*range + 1 - i ) {
+                if (rowCount != 3 * range + 1 - i ) {
                     throw new FileFormatException();
                 }
             }
@@ -117,7 +114,6 @@ public class GameLoader extends Object {
                 pathDetails.add(c);
             }
             ListIterator<Character> pathDetailsIterator = pathDetails.listIterator();
-
             boolean preDash = true;
             boolean preComma = true;
             while (pathDetailsIterator.hasNext()) {
@@ -193,17 +189,14 @@ public class GameLoader extends Object {
                 componentPrevious.getPath().setNext(component.getPath());
 
             } else if (component instanceof Belt) {
-
                 if (componentPrevious != null) {
                     component.getPath().setPrevious(componentPrevious.getPath());
                     componentPrevious.getPath().setNext(component.getPath());
                 }
-
                 if (componentNext != null) {
                     component.getPath().setNext(componentNext.getPath());
                     componentNext.getPath().setPrevious(component.getPath());
                 }
-
             } else {
                 throw new FileFormatException();
             }
@@ -231,94 +224,6 @@ public class GameLoader extends Object {
              }
         }
         throw new IllegalArgumentException();
-    }
-    private static boolean checkHex (GameGrid grid) {
-        boolean isHex = true;
-        Map<Coordinate, GridComponent> gridMap = grid.getGrid();
-        Coordinate origin = new Coordinate();
-        Coordinate current = origin;
-        int rightCount = 0;
-        while (gridMap.get(current.getRight())!= null) {
-            current = current.getRight();
-            rightCount++;
-        }
-        if (!(gridMap.get(current.getRight()) == null
-                && gridMap.get(current.getTopRight()) == null
-                && gridMap.get(current.getBottomRight()) == null)) {
-            isHex = false;
-        }
-        current = origin;
-        int bottomLeftCount = 0;
-        while (gridMap.get(current.getBottomLeft())!= null){
-            current = current.getBottomLeft();
-            bottomLeftCount++;
-        }
-        if (!(gridMap.get(current.getLeft()) == null
-                && gridMap.get(current.getBottomLeft()) == null
-                && gridMap.get(current.getBottomRight()) == null)) {
-            isHex = false;
-        }
-        current = origin;
-        int bottomRightCount = 0;
-        while (gridMap.get(current.getBottomRight())!= null){
-            current = current.getBottomRight();
-            bottomRightCount++;
-        }
-        if (!(gridMap.get(current.getRight()) == null
-                && gridMap.get(current.getBottomLeft()) == null
-                && gridMap.get(current.getBottomRight()) == null)) {
-            isHex = false;
-        }
-        current = origin;
-        int leftCount = 0;
-        while (gridMap.get(current.getLeft())!= null){
-            current = current.getLeft();
-            leftCount++;
-        }
-        if (!(gridMap.get(current.getLeft()) == null
-                && gridMap.get(current.getBottomLeft()) == null
-                && gridMap.get(current.getTopLeft()) == null)) {
-            isHex = false;
-        }
-        current = origin;
-        int topLeftCount = 0;
-        while (gridMap.get(current.getTopLeft())!= null){
-            current = current.getTopLeft();
-            topLeftCount++;
-
-        }
-        if (!(gridMap.get(current.getLeft()) == null
-                && gridMap.get(current.getTopRight()) == null
-                && gridMap.get(current.getTopLeft()) == null)) {
-            isHex = false;
-        }
-        current = origin;
-        int topRightCount = 0;
-        while(gridMap.get(current.getTopRight())!= null) {
-            current = current.getTopRight();
-            topRightCount++;
-        }
-        if (!(gridMap.get(current.getRight()) == null
-                && gridMap.get(current.getTopRight()) == null
-                && gridMap.get(current.getTopLeft()) == null)) {
-            isHex = false;
-        }
-        int range = grid.getRange();
-        if (topRightCount == range
-                && topLeftCount == range
-                && leftCount == range
-                && rightCount == range
-                && bottomRightCount == range
-                && bottomLeftCount == range
-                && isHex) {
-            return true;
-
-        } else {
-            return false;
-        }
-
-
-
     }
 
 
