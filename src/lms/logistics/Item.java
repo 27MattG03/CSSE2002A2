@@ -4,6 +4,7 @@ package lms.logistics;
  * An item that can be stored in a container.
  */
 public class Item {
+    /** The name of the item. */
     private String name;
 
     /**
