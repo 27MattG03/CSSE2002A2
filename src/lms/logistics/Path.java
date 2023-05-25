@@ -13,8 +13,11 @@ import java.util.function.Consumer;
  * @ass2
  */
 public class Path {
+    /** The previous path in the path chain. */
     private Path previous;
+    /** The next path in the path chain. */
     private Path next;
+    /** The transport node of this path. */
     private Transport node;
 
     /**
