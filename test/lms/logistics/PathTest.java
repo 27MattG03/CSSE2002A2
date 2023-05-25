@@ -20,7 +20,8 @@ public class PathTest {
     }
     @org.junit.Test
     public void testConstructor () {
-        assertThrows(IllegalArgumentException);
+        assertThrows(IllegalArgumentException.class, () -> {Path nullTest = new Path((Transport) null);});
+        assertThrows(IllegalArgumentException.class, () -> {Path nullTest = new Path(null, head, tail);});
     }
     @org.junit.Test
     public void head() {
