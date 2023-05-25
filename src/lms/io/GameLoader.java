@@ -16,7 +16,7 @@ import java.util.*;
 
 
 public class GameLoader extends Object {
-    private static final String SEPARATOR = "_____";
+
     public static GameGrid load(Reader reader)
             throws IOException,
             FileFormatException {
@@ -135,7 +135,7 @@ public class GameLoader extends Object {
         } catch (Exception e) {
             throw new FileFormatException();
         }
-        if (!(sep.equals(SEPARATOR))) {
+        if (!(sep.equals("_____"))) {
             throw new FileFormatException();
         }
     }
