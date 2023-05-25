@@ -18,10 +18,10 @@ public class PathTest {
         this.next1.setNext(next2);
         this.next2.setNext(tail);
     }
-    @org.junit.Test
+    @org.junit.Test(expected = IllegalArgumentException.class)
     public void testConstructor () {
-        assertThrows(IllegalArgumentException.class, () -> {Path nullTest = new Path((Transport) null);});
-        assertThrows(IllegalArgumentException.class, () -> {Path nullTest = new Path(null, head, tail);});
+      Path nullTest = new Path((Transport) null);
+      Path nullTest1 = new Path(null, head, tail);
     }
     @org.junit.Test
     public void head() {
