@@ -258,11 +258,13 @@ public class GameLoader extends Object {
                 throw new FileFormatException();
             }
 
-            if (component instanceof Producer && componentPrevious !=  null) {
+            if (component instanceof Producer && componentPrevious !=  null
+                    && componentNext == null) {
                 component.getPath().setNext(componentPrevious.getPath());
                 componentPrevious.getPath().setPrevious(component.getPath());
 
-            } else if (component instanceof Receiver && componentPrevious != null) {
+            } else if (component instanceof Receiver && componentPrevious != null
+                    && componentNext == null) {
                 component.getPath().setPrevious(componentPrevious.getPath());
                 componentPrevious.getPath().setNext(component.getPath());
 
