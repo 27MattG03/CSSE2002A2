@@ -14,9 +14,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
 
+/**
+ * This class is responsible for loading a game from a specifically formatted fike.
+ */
 
 public class GameLoader extends Object {
-
+    /**
+     * This method loads a GameGrid object from a file.
+     * @param reader the reader to read the file from.
+     * @return the GameGrid object.
+     * @throws IOException if there is an error reading the file.
+     * @throws FileFormatException if the file is not formatted correctly.
+     */
     public static GameGrid load(Reader reader)
             throws IOException,
             FileFormatException {
@@ -126,6 +135,11 @@ public class GameLoader extends Object {
         throw new IllegalArgumentException();
     }
 
+    /**
+     * This method processes the separator between sections in the file.
+     * @param reader the reader to read the file from.
+     * @throws FileFormatException if the separator is not correct.
+     */
     private static void processSeparator(BufferedReader reader) throws FileFormatException{
         String line;
         String sep;
@@ -139,6 +153,15 @@ public class GameLoader extends Object {
             throw new FileFormatException();
         }
     }
+
+    /**
+     * This method processes the path section of the file.
+     * @param game the GameGrid object.
+     * @param buffReader the reader to read the file from.
+     * @return the completed GameGrid object.
+     * @throws FileFormatException if the path is not formatted correctly.
+     * @throws IOException if there is an error reading the file.
+     */
     private static GameGrid processPath (GameGrid game, BufferedReader buffReader) throws FileFormatException, IOException {
         String buffCheck;
         while((buffCheck = buffReader.readLine()) != null) {
