@@ -63,7 +63,8 @@ public class GameLoader extends Object {
             for (char c : check) {
                 switch (c) {
                     case 'p':
-                        game.setCoordinate(currentCoordinate, new Producer(count, producerIter.next()));
+                        game.setCoordinate(currentCoordinate,
+                                new Producer(count, producerIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
                         rowCount++;
                         count++;
@@ -74,7 +75,8 @@ public class GameLoader extends Object {
                         rowCount++;
                         break;
                     case 'r':
-                        game.setCoordinate(currentCoordinate, new Receiver(count, recieverIter.next()));
+                        game.setCoordinate(currentCoordinate,
+                                new Receiver(count, recieverIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
                         count++;
                         rowCount++;
@@ -141,7 +143,7 @@ public class GameLoader extends Object {
         GridComponent component;
         while (iter.hasNext()) {
             component = iter.next();
-            if (component instanceof Transport){
+            if (component instanceof Transport) {
                 if (((Transport) component).getId() == id) {
                     return (Transport) component;
                 }
@@ -155,12 +157,12 @@ public class GameLoader extends Object {
      * @param reader the reader to read the file from.
      * @throws FileFormatException if the separator is not correct.
      */
-    private static void processSeparator(BufferedReader reader) throws FileFormatException{
+    private static void processSeparator(BufferedReader reader) throws FileFormatException {
         String line;
         String sep;
         try {
             line = reader.readLine();
-            sep = line.substring(0,5);
+            sep = line.substring(0, 5);
         } catch (Exception e) {
             throw new FileFormatException();
         }
@@ -177,9 +179,10 @@ public class GameLoader extends Object {
      * @throws FileFormatException if the path is not formatted correctly.
      * @throws IOException if there is an error reading the file.
      */
-    private static GameGrid processPath (GameGrid game, BufferedReader buffReader) throws FileFormatException, IOException {
+    private static GameGrid processPath(GameGrid game, BufferedReader buffReader)
+            throws FileFormatException, IOException {
         String buffCheck;
-        while((buffCheck = buffReader.readLine()) != null) {
+        while ((buffCheck = buffReader.readLine()) != null) {
             StringBuilder idBuild = new StringBuilder();
             StringBuilder idNextBuild = new StringBuilder();
             StringBuilder idPreviousBuild = new StringBuilder();
@@ -231,7 +234,7 @@ public class GameLoader extends Object {
             if (idPreviousBuild.isEmpty()) {
                 idPrevious = 0;
             } else {
-                idPrevious= Integer.valueOf(idPreviousBuild.toString());
+                idPrevious = Integer.valueOf(idPreviousBuild.toString());
             }
             if (id == idPrevious || idNext == id || idNext == idPrevious) {
                 throw new FileFormatException();
