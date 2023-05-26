@@ -159,11 +159,11 @@ public class Path {
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder("START -> ");
+        // Go to head
         if (this.equals(head())) {
             Path current = this;
             out.append(head().getNode().toString());
             out.append(" -> ");
-
             while (!current.equals(tail())) {
                 current = current.getNext();
                 out.append(current.getNode().toString());

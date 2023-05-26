@@ -15,10 +15,17 @@ import java.io.Reader;
 import java.util.*;
 
 /**
- * This class is responsible for loading a game from a specifically formatted fike.
+ * This class is responsible for loading a game from a specifically formatted file.
  */
 
 public class GameLoader extends Object {
+    private final static String SEPARATOR = "_____";
+    private final static char BELT = 'b';
+    private final static char PRODUCER = 'p';
+    private final static char RECEIVER = 'r';
+    private final static char WALL = 'w';
+    private final static char EMPTY = 'o';
+
     /**
      * This method loads a GameGrid object from a file.
      * @param reader the reader to read the file from.
@@ -62,31 +69,31 @@ public class GameLoader extends Object {
             char[] check = line.toCharArray();
             for (char c : check) {
                 switch (c) {
-                    case 'p':
+                    case PRODUCER:
                         game.setCoordinate(currentCoordinate,
                                 new Producer(count, producerIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
                         rowCount++;
                         count++;
                         break;
-                    case 'w':
-                        game.setCoordinate(currentCoordinate, () -> ("w"));
+                    case WALL:
+                        game.setCoordinate(currentCoordinate, () -> (String.valueOf(WALL)));
                         currentCoordinate = currentCoordinate.getRight();
                         rowCount++;
                         break;
-                    case 'r':
+                    case RECEIVER:
                         game.setCoordinate(currentCoordinate,
                                 new Receiver(count, recieverIter.next()));
                         currentCoordinate = currentCoordinate.getRight();
                         count++;
                         rowCount++;
                         break;
-                    case 'o':
-                        game.setCoordinate(currentCoordinate, () -> ("o"));
+                    case EMPTY:
+                        game.setCoordinate(currentCoordinate, () -> (String.valueOf(EMPTY)));
                         currentCoordinate = currentCoordinate.getRight();
                         rowCount++;
                         break;
-                    case 'b':
+                    case BELT:
                         game.setCoordinate(currentCoordinate, new Belt(count));
                         currentCoordinate = currentCoordinate.getRight();
                         rowCount++;
@@ -98,13 +105,16 @@ public class GameLoader extends Object {
                         throw new FileFormatException();
                 }
             }
+            //Check if in rows before or after middle row
             if (i < range) {
                 origin = origin.getBottomLeft();
+                //Check if hexagon
                 if (rowCount != range + i + 1) {
                     throw new FileFormatException();
                 }
             } else {
                 origin = origin.getBottomRight();
+                //Check if hexagon
                 if (rowCount != 3 * range + 1 - i) {
                     throw new FileFormatException();
                 }
@@ -166,7 +176,7 @@ public class GameLoader extends Object {
         } catch (Exception e) {
             throw new FileFormatException();
         }
-        if (!(sep.equals("_____"))) {
+        if (!(sep.equals(SEPARATOR))) {
             throw new FileFormatException();
         }
     }
@@ -194,6 +204,7 @@ public class GameLoader extends Object {
             ListIterator<Character> pathDetailsIterator = pathDetails.listIterator();
             boolean preDash = true;
             boolean preComma = true;
+            // Get the id's of each element in this line of path details.
             while (pathDetailsIterator.hasNext()) {
                 Character check = pathDetailsIterator.next();
                 if (Character.isDigit(check)) {
@@ -208,7 +219,6 @@ public class GameLoader extends Object {
                     } else {
                         throw new FileFormatException();
                     }
-
                 } else if (!Character.isDigit(check) && check.equals('-') && preDash) {
                     preDash = false;
 
@@ -223,9 +233,11 @@ public class GameLoader extends Object {
                 throw new FileFormatException();
             }
             int id = Integer.valueOf(idBuild.toString());
+            // Refers to component id after the dash, in the case that component is a belt or
+            // receiver this will be the previous component. If it is a producer this will be the next component.
             int idPrevious;
             int idNext;
-
+            // If the ids are empty, set them to 0.
             if (idNextBuild.isEmpty()) {
                 idNext = 0;
             } else {
@@ -257,7 +269,6 @@ public class GameLoader extends Object {
             } catch (Exception e) {
                 throw new FileFormatException();
             }
-
             if (component instanceof Producer && componentPrevious !=  null
                     && componentNext == null) {
                 component.getPath().setNext(componentPrevious.getPath());
