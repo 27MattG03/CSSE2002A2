@@ -54,7 +54,7 @@ public class Path {
      * @param previous The previous path.
      * @param next The next path.
      */
-    public Path(Transport node, Path previous, Path next) {
+    public Path(Transport node, Path previous, Path next) throws IllegalArgumentException {
         this.next = next;
         this.previous = previous;
         if (node != null) {
