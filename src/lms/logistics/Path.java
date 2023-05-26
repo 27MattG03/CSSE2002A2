@@ -108,8 +108,7 @@ public class Path {
      * Sets the previous Path in the path chain.
      * @param path The previous Path in the path chain.
      */
-    public void setPrevious(Path path){
-
+    public void setPrevious(Path path) {
         this.previous = path;
     }
 

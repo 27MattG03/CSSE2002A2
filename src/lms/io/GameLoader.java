@@ -19,11 +19,29 @@ import java.util.*;
  */
 
 public class GameLoader extends Object {
+    /**
+     * Separator used in the file format.
+     */
     private final static String SEPARATOR = "_____";
+    /**
+     * The character used to represent a belt in the file format.
+     */
     private final static char BELT = 'b';
+    /**
+     * The character used to represent a producer in the file format.
+     */
     private final static char PRODUCER = 'p';
+    /**
+     * The character used to represent a receiver in the file format.
+     */
     private final static char RECEIVER = 'r';
+    /**
+     * The character used to represent a wall in the file format.
+     */
     private final static char WALL = 'w';
+    /**
+     * The character used to represent an empty space in the file format.
+     */
     private final static char EMPTY = 'o';
 
     /**
@@ -233,8 +251,10 @@ public class GameLoader extends Object {
                 throw new FileFormatException();
             }
             int id = Integer.valueOf(idBuild.toString());
-            // Refers to component id after the dash, in the case that component is a belt or
-            // receiver this will be the previous component. If it is a producer this will be the next component.
+            // Refers to component id after the dash,
+            // in the case that component is a belt or
+            // receiver this will be the previous component.
+            // If it is a producer this will be the next component.
             int idPrevious;
             int idNext;
             // If the ids are empty, set them to 0.
