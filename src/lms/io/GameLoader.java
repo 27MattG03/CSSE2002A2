@@ -22,27 +22,27 @@ public class GameLoader extends Object {
     /**
      * Separator used in the file format.
      */
-    private final static String SEPARATOR = "_____";
+    private static final String SEPARATOR = "_____";
     /**
      * The character used to represent a belt in the file format.
      */
-    private final static char BELT = 'b';
+    private static final char BELT = 'b';
     /**
      * The character used to represent a producer in the file format.
      */
-    private final static char PRODUCER = 'p';
+    private static final char PRODUCER = 'p';
     /**
      * The character used to represent a receiver in the file format.
      */
-    private final static char RECEIVER = 'r';
+    private static final char RECEIVER = 'r';
     /**
      * The character used to represent a wall in the file format.
      */
-    private final static char WALL = 'w';
+    private static final char WALL = 'w';
     /**
      * The character used to represent an empty space in the file format.
      */
-    private final static char EMPTY = 'o';
+    private static final char EMPTY = 'o';
 
     /**
      * This method loads a GameGrid object from a file.
